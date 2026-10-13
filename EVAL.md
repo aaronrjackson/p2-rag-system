@@ -173,8 +173,31 @@ The result is 8 of 8 in-corpus questions verified and 4 of 4 unanswerable ones d
   The claim says each miner who goes underground must be given a device adequate for 1 hour or longer.
   `cfr30-75.1714#0` says "(a) Each operator shall make available to each miner who goes underground ... an approved self-rescue device or devices which is adequate to protect such person for 1 hour or longer.", so it is fully supported.
 
-I did not read the other five in-corpus answers or the four declined ones.
-For the declined questions, I checked only that `not_found` was set, and not that the chunks really lacked an answer.
+- **a04, evacuation drill frequency.**
+  Both claims are supported: "At least once every six months, mine evacuation drills shall be held" and "Be held for each shift at some time other than a shift change and involve all persons underground" are both in `cfr30-57.4361#0`.
+- **a05, hours of training for a new underground miner.**
+  The quote, "no less than 40 hours of training ... before such miner is assigned to work duties", is real and supports the 40 hours.
+  The claim goes past the quote by adding that training is conducted in conditions that duplicate actual underground conditions, which is the next sentence of 48.5(a) and is not in the quote.
+  The answer text also says section 48.25 sets 24 hours with at least 8 before assignment, and hedges that the chunks do not say who it covers.
+  That 48.25 statement has no claim or quote behind it, so the verifier never checked it.
+- **a06, noise permissible exposure level.**
+  Supported: the quote is the definition "A TWA8 of 90 dBA or equivalently a dose of 100% of that permitted by the standard", from `cfr30-62.101#1`.
+- **a07, berm or guardrail height.**
+  Both claims are supported, and the two quotes are word for word the same sentence from `cfr30-56.9300#0` and `cfr30-57.9300#0`.
+  That fits the brief's point that the same rule is written once for each part, and it means the two claims are two true citations of one rule and not two independent findings.
+- **a08, hours of breathable air in a refuge alternative.**
+  Supported: "The breathable air sustains each person for 96 hours" is in `cfr30-7.506#0`.
+  The answer text adds in parentheses that under 75.1507 the stocking requirement can be met for 48 hours with advance arrangements.
+  That is in the retrieved `cfr30-75.1507` chunks, but it concerns food and water in paragraph (d)(1) and not breathable air, and it has no claim or quote behind it.
+
+**What the audit shows.**
+I read all 11 claims of the eight in-corpus answers against their chunks.
+All 11 quotes are real, and 8 of the 11 claims are fully supported by their quotes.
+Three claims say a little more than their quote: a01 (the death condition is on the next line), a02 (the word "only") and a05 (the underground-conditions clause).
+In none of them is the core number wrong.
+Separately, two answers (a05 and a08) put extra statements in the answer text with no claim or quote behind them, so the verifier never checks that text.
+"8 of 8 verified" is therefore accurate about the quotes, and it overstates how closely every sentence of every answer is checked.
+For the four declined questions I checked only that `not_found` was set, and not that the chunks really lacked an answer.
 
 ---
 

@@ -80,12 +80,13 @@ Did you do anything to test it, and what did that show?
 The number I trust least is "8 of 8 verified (100%)" in the answers table of `EVAL.md` section 2.
 Eight questions is few, and the Wilson interval says so: [0.676, 1.000], so the true rate could be about two thirds.
 More importantly, the check only proves that each quote is a real piece of the cited chunk.
-When I read three of the answers against their chunks, a02's second claim said the percentage rises "only" where methane is present, and its quote does not say "only", yet it counted as verified.
+When I read the answers against their chunks, a02's second claim said the percentage rises "only" where methane is present, and its quote does not say "only", yet it counted as verified.
 So 100% verified is a share of quotes that are real, and not a share of claims that the quotes support.
 
-To trust it I would need to read all 11 claims and not three, and ideally run the answers more than once, since Claude's replies are not deterministic.
-I tested it by reading three answers, which found that one small overreach and no fabricated quote.
-I have not read the other five in-corpus answers.
+To trust it I would need every sentence of every answer to carry a quote, and ideally to run the answers more than once, since Claude's replies are not deterministic.
+I tested it by reading all 11 claims of the eight in-corpus answers.
+All 11 quotes were real and none was fabricated, but three claims said a little more than their quote (a01, a02, a05), and two answers (a05, a08) added statements in the answer text with no claim or quote behind them, which the verifier never checks.
+The three-run repeat showed the shares stay at 100% but the retrieved chunks and claim counts change between runs, so I trust the shares more than the details.
 
 ---
 
