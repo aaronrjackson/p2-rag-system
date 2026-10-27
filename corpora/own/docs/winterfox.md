@@ -1,0 +1,5 @@
+# Winterfox
+
+Winterfox
+
+Winterfox (WFX) was an esports organization with teams competing in Counter-Strike: Global Offensive, Halo and Street Fighter. The team was founded after the Evil Geniuses League of Legends team split from the organization following the creation of a new sponsorship rule for the League of Legends Championship Series, and the team later expanded into other games. WWinterfox signed Super Smash Bros. Melee Sheik player DaJuan "Shroomed" Jefferson McDaniel on July 16, 2015. The Winterfox Halo team competed in the Halo Championship Series. Winterfox Halo placed top 5 in 11 consecutive tournaments, winning both the 2016 Halo Championship Series Season 2: Legendary Cups 1 and 6. Winterfox signed fighting games player Gustavo "801 Strider" Romero to the team on July 15, 2015. In November 2015 Winterfox's CSGO team moved to SteelSeries's headquarters in Chicago, Illinois. Winterfox's League of Legends team competed in the North American League of Legends Championship Series (NA LCS) for the 2015 Spring NA LCS split before being relegated and eventually disbanding.

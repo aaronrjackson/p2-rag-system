@@ -1,0 +1,11 @@
+# Flamengo Esports
+
+Flamengo Esports
+
+Flamengo Esports is the esports department of traditional sports club Flamengo. It had a League of Legends team competing in the Campeonato Brasileiro de League of Legends (CBLoL), Brazil's top professional league for the game.
+
+History
+
+On 6 October 2017 Flamengo announced the creation of its esports department and its acquisition of the BRCC (Brazilian equivalent of North America and Europe's former challenger series) spot of Merciless Gaming. For its inaugural roster, Flamengo signed top laner Park "Jisu" Jin-cheol, jungler Thúlio "Sirt" Carlos, mid laner Danniel "Evrot" Franco, bot laner Felipe "brTT" Gonçalves, and support Eidi "esA" Yanagimachi. The team debuted in BRCC 2018 Split 1 and finished as runner-ups, qualifying for the BRCC 2018 Split 2 promotion tournament. Flamengo qualified for the CBLoL after defeating Team oNe eSports 3–2 in the "access series" match.
+Flamengo finished as runner-ups in the team's first CBLoL appearance, in both the regular season and playoffs after losing 2–3 to KaBuM! e-Sports in the finals. In preparation for the 2019 CBLoL season, Flamengo replaced its entire roster excluding brTT, signing top laner Leonardo "Robo" Souza, jungler Lee "Shrimp" Byeong-hoon, mid laner Bruno "Goku" Miyaguchi, and support Han "Luci" Chang-hoon. The team dominated the regular season of Split 1, losing only a single game to KaBuM. However, in the playoffs Flamengo once again fell short, losing to INTZ e-Sports 2–3 in the finals. After placing first once again in the regular season of Split 2, Flamengo managed to defeat INTZ 3–2 to finally win their first CBLoL title. This also qualified the team for the play-in stage of the 2019 World Championship.
+For the 2019 World Championship play-in stage round robin, Flamengo was placed in Group D, along with South Korean team DAMWON Gaming and Turkish team Royal Youth. Despite a good showing against DAMWON Gaming and Royal Youth in the first round robin (the latter of which Flamengo defeated), Flamengo faltered in the second, losing to both teams and tying Royal Youth for second in Group D. After losing the tiebreaker match to Royal Youth, Flamengo was eliminated from the tournament.
