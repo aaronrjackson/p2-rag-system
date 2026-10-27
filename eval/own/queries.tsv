@@ -12,8 +12,8 @@ q07	mixed	Which North American team was the first to win a Major, and who did it
 q08	mixed	Which two teams were involved in the 2014 North American match-fixing scandal?	claude
 q09	mixed	Which team did s1mple spend most of his career with?	claude
 q10	mixed	When was Nuke redesigned for CS:GO, and as part of which update?	claude
-q11	mixed	Who was the coach of Cloud9 during their 2018 major victory?	hand
-q12	paraphrase	Which North American player has won the most in terms of prize-money?	hand
+q11	mixed	In what year did Team Liquid win the ESL Grand Slam?	hand
+q12	mixed	What team did Stewie2K play for after Cloud9?	hand
 q13	identifier	When was Vertigo added to the competitive map pool?	hand
 q14	identifier	When was Cache re-released for Counter-Strike 2?	hand
 q15	paraphrase	Who has won the most majors?	hand

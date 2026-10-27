@@ -218,7 +218,17 @@ How did you decide that a document is relevant: write your relevance rule in two
 How did you find candidates (the systems' top 10, a keyword search, reading), and did you read every document before you labeled it?
 Your labels are binary (`rel` 1) unless you say otherwise: if you use graded labels, declare the scale here, for example 2 means the document answers the query fully and 1 means it helps.
 
-TODO: describe your gold set and your relevance rule.
+The gold set has 40 queries: 10 with origin `hand` (q11 to q20) and 30 with origin `claude` (the rest).
+I used the same three classes as the shared sets, `identifier` (8 queries), `mixed` (16) and `paraphrase` (16), so the per-class scores can be compared across the two corpora.
+
+**Relevance rule.**
+A page is relevant to a query if its text states the answer the query asks for.
+A page that only mentions the person, team or event without giving that answer is not relevant, and neither is one that merely sounds related.
+When several pages each state the answer, such as a player's page and the event page where they won, all of them are relevant.
+For a "what is X" query, the page about X is the relevant one.
+Labels are binary (`rel` 1), and I decided each one after reading the page, not from the system that returned it.
+
+TODO: say how I found candidates for each query and whether I read every page before labeling it.
 
 ---
 
