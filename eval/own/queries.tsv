@@ -2,3 +2,43 @@
 # origin is hand when you wrote the query yourself and claude when a model drafted it; at least 10 must be hand.
 # class is a word you choose, for example identifier, paraphrase or mixed as in the shared sets; scores are reported per class.
 # Lines that start with # are comments, so delete these lines or keep them, as you like.
+q01	mixed	At which Major did spectators rush the stage and damage the trophy?	claude
+q02	identifier	Who developed de_dust2?	claude
+q03	paraphrase	Which fan-made game mode has players glide along ramps at high speed using a physics exploit?	claude
+q04	paraphrase	What exploit let team coaches see parts of the map they shouldn't have access to?	claude
+q05	paraphrase	Which esports news site, founded in 2002, was later bought by Major League Gaming?	claude
+q06	paraphrase	What did Valve rename the Challengers and Legends stages of the Major to?	claude
+q07	mixed	Which North American team was the first to win a Major, and who did it beat in the final?	claude
+q08	mixed	Which two teams were involved in the 2014 North American match-fixing scandal?	claude
+q09	mixed	Which team did s1mple spend most of his career with?	claude
+q10	mixed	When was Nuke redesigned for CS:GO, and as part of which update?	claude
+q11	mixed	Who was the coach of Cloud9 during their 2018 major victory?	hand
+q12	paraphrase	Which North American player has won the most in terms of prize-money?	hand
+q13	identifier	When was Vertigo added to the competitive map pool?	hand
+q14	identifier	When was Cache re-released for Counter-Strike 2?	hand
+q15	paraphrase	Who has won the most majors?	hand
+q16	mixed	How many MVPs does Donk have?	hand
+q17	mixed	Who was the HLTV #1 player in 2013?	hand
+q18	paraphrase	What is HLTV?	hand
+q19	paraphrase	Which team was the first to win more than one major?	hand
+q20	mixed	Who is the only player to have won three ESL Grand Slams?	hand
+q21	paraphrase	Which French player has been named HLTV's best player in the world four times?	claude
+q22	paraphrase	Who has made HLTV's top 20 players of the year list more than anyone else?	claude
+q23	mixed	Which was the first CS:GO Major held in North America?	claude
+q24	identifier	What was the first CS:GO Major Championship?	claude
+q25	paraphrase	Which North American team was the first to reach a Major grand final, and who beat them?	claude
+q26	paraphrase	What was the last CS:GO Major before the switch to Counter-Strike 2?	claude
+q27	mixed	What is Gun Game called in CS:GO and Counter-Strike 2?	claude
+q28	identifier	Who won the Rio Major?	claude
+q29	paraphrase	Which players were the first to win three Majors in a row?	claude
+q30	paraphrase	Which Brazilian player was voted the best in the world two years in a row, in 2016 and 2017?	claude
+q31	paraphrase	Which underdog upset Liquid and Natus Vincere on the way to the Katowice Major final?	claude
+q32	mixed	Which Danish-German in-game leader was a founding member of Astralis?	claude
+q33	identifier	How do you pronounce Fnatic?	claude
+q34	mixed	Who beat Fnatic in the ESL One Cologne 2014 final?	claude
+q35	mixed	Which team from Kazakhstan won a Major?	claude
+q36	identifier	When was Counter-Strike: Condition Zero released?	claude
+q37	paraphrase	Who won the second Counter-Strike 2 Major?	claude
+q38	identifier	When was the Inferno map first added to Counter-Strike?	claude
+q39	mixed	When did CS:GO become free to play?	claude
+q40	mixed	Which maps are in the Counter-Strike 2 competitive map pool?	claude
