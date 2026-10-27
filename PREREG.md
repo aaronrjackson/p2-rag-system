@@ -24,7 +24,7 @@ One sentence, about your own corpus, naming two of your systems and a direction.
 For example: "On my corpus of Kubernetes documentation, `rerank` has a higher MRR@10 than `hybrid`, because the queries are paraphrases that a first-stage fusion ranks too low."
 It should be something you could be wrong about.
 
-TODO: your hypothesis.
+On my corpus of English Wikipedia articles about Counter-Strike, `rerank` has a higher nDCG@10 than `hybrid`, and I expect this because the corpus is full of "near-neighbours" as many Majors, ESL seasons and teams share names and vocabulary, so `hybrid` should find the right family of pages but often rank a sibling page above the one that answers the question.
 
 ---
 
@@ -36,7 +36,10 @@ A difference of 0.02 is usually not worth a reranker's cost in time and tokens.
 In this course, choose a Δ of at least 0.15 unless you argue for a larger one, because a smaller gap takes more queries than one project can judge.
 Call your number Δ (delta).
 
-TODO: your metric and your Δ, with the reason.
+The metric is nDCG@10, and Δ = 0.15.
+
+I chose nDCG@10 and not MRR@10 because I expect several of my questions to have more than one relevant page, and nDCG@10 counts all of them while MRR@10 counts only the first.
+It also has the smaller spread for this pair in stage 1 (0.295 against 0.394), so it needs fewer queries.
 
 ---
 
@@ -65,7 +68,10 @@ After you score the own corpus, the minimum detectable difference that `uv run p
 It should come out at or below your Δ.
 If it does not, your queries varied more than your stage 1 sd suggested, and you will say so in the outcome.
 
-TODO: your sd, which pair it came from, your n, and the number of queries you will write (at least n).
+The pair is `rerank` against `hybrid`, and the sd is **0.295** for nDCG@10, from the 20 shared practice queries in `results/results.json`.
+With Δ = 0.15, n = ((1.96 + 0.84) × 0.295 / 0.15)² = 30.3, so **n = 31**.
+That sd comes from only 20 queries, so I will round up and write and judge **40 queries**.
+I gave ground on size. 40 holds if the true sd is at most about 0.34, but the MRR@10 spread for this pair (0.394) would need 54.
 
 ---
 
@@ -82,7 +88,8 @@ This is the default rule, and you can tighten it, but do not loosen it after you
 | around zero, with both ends inside plus or minus Δ | well-powered null: a difference as large as Δ is ruled out |
 | around zero, with an end beyond plus or minus Δ | inconclusive: the gold set could not settle it, and I say so |
 
-TODO: confirm or tighten this rule, and name the two systems and the metric once more.
+I keep the default rule and do not tighten it.
+The two systems are `rerank` and `hybrid`, and the metric is nDCG@10.
 
 ---
 
