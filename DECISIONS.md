@@ -26,7 +26,12 @@ Commit this answer before your first `uv run p2 score` on the own corpus.
 Git history then shows that the expectation came first, which is what lets it be wrong in a way that teaches you something.
 If you were surprised later, say so in prompt 4 or in EVAL.md; do not come back and rewrite this one.
 
-TODO: your answer to prompt 1.
+I picked the Counter-Strike articles on English Wikipedia because I know the professional Counter-Strike scene well, which made it possible to write good questions and judge pages quickly, and because Wikipedia text is CC BY-SA 4.0, so I can republish it.
+I tried Liquipedia and HLTV first and dropped them: HLTV articles are copyrighted, and Liquipedia is mostly tables with very little prose for a retriever to work on.
+
+I expected `rerank` to win, for the reason in my `PREREG.md`: the corpus is full of near-neighbour pages (many Majors, ESL seasons and teams that share names and vocabulary), so `hybrid` should find the right family of pages but often put a sibling above the one that answers the question, and Claude reading the top 20 side by side should fix that.
+
+I expected `bm25` to perform the worst as many of the same players, tournaments, teams, maps, etc. would appear many times in many different articles, regardless of whether or not it's actually relevant to the question that was asked.
 
 ---
 
@@ -65,7 +70,10 @@ What did you do instead?
 If it genuinely never happened, say so plainly, and then say what you would have had to check in order to notice.
 Being honest here costs you far less than a story you cannot defend when you record your video.
 
-TODO: your answer to prompt 3.
+When Claude drafted 20 queries for my gold set, several were about the business side of organizations, such as which Danish organization went public with an IPO, which organization GameSquare acquired, and which Russian-founded organization was bought by Armenian investors.
+I noticed when I read the list it gave me: I wanted questions about the sport itself, and these read as finance questions about organizations getting bought or acquired.
+I dropped eight of the twenty, including those three, and asked Claude for eight replacements about matches, tournaments, results and maps instead.
+Those replacements are the ones now in `eval/own/queries.tsv`, for example who won the Rio Major and which maps are in the Counter-Strike 2 map pool.
 
 ---
 
