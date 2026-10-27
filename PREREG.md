@@ -100,7 +100,16 @@ Which row of the table in section 4 is it?
 Did your gold set reach the size section 3 asked for, and what was the minimum detectable difference that `uv run p2 score` printed?
 What would you do next, and what would you want a reader to take from this?
 
-TODO: your outcome.
+The interval for `rerank` minus `hybrid` in nDCG@10 on my 40-query gold set was +0.044 [-0.033, +0.123].
+
+That is the third row of my table in section 4: the interval is around zero, with both ends inside plus or minus Δ = 0.15, so it is a well-powered null.
+A difference as large as 0.15 is ruled out, and my hypothesis that `rerank` beats `hybrid` on this corpus was not supported (nor was it contradicted: `rerank` has the higher mean, but the interval includes zero).
+
+The gold set reached the size section 3 asked for: I wrote and judged 40 queries against the 31 the formula called for, and the minimum detectable difference that `uv run p2 score` printed for this pair was 0.112, which is below my Δ of 0.15, so my stage 1 sd (0.295) was not too optimistic.
+
+Next I would give the reranker more of each page, because it only sees the first 200 words and 94% of my pages are longer.
+I tested a version with 600 words as the ablation in `EVAL.md` section 5: it helped the three queries I expected it to, but its overall gain over `rerank` was not distinguishable from zero (nDCG@10 +0.031 [-0.004, +0.074]).
+What I want a reader to take from this is that, on 220 Counter-Strike articles, a Claude reranker did not beat plain fusion of keyword and embedding search by an amount worth its cost (about 10,400 input tokens and 4.2 seconds per query), at least in the form I built it.
 
 ---
 

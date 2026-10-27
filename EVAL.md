@@ -251,6 +251,7 @@ Scores per system on your gold set.
 | dense | 0.854 | 0.849 | 0.777 |
 | hybrid | 0.931 | 0.858 | 0.830 |
 | rerank | 0.938 | 0.911 | 0.874 |
+| ablation/rerank_long | 0.946 | 0.950 | 0.906 |
 
 40 judged queries; nDCG uses binary labels; a random ranking of the 220 documents would get recall@10 near 0.045.
 <!-- p2:end own -->
@@ -272,6 +273,9 @@ The same scores per query class.
 | rerank | Recall@10 | 0.971 | 0.875 | 0.933 |
 | rerank | MRR@10 | 0.875 | 1.000 | 0.906 |
 | rerank | nDCG@10 | 0.881 | 0.868 | 0.871 |
+| ablation/rerank_long | Recall@10 | 0.971 | 0.917 | 0.933 |
+| ablation/rerank_long | MRR@10 | 0.951 | 1.000 | 0.922 |
+| ablation/rerank_long | nDCG@10 | 0.920 | 0.918 | 0.882 |
 <!-- p2:end own-classes -->
 
 The same scores for the queries you wrote yourself (`hand`) and the ones a model drafted (`claude`), with the difference between the two groups and its interval.
@@ -292,6 +296,9 @@ Once both groups have queries, the table also says whether `bm25`'s lead over `d
 | rerank | Recall@10 | 0.867 | 0.961 | -0.094 | [-0.239, +0.033] | not distinguishable |
 | rerank | MRR@10 | 0.925 | 0.907 | +0.018 | [-0.158, +0.160] | not distinguishable |
 | rerank | nDCG@10 | 0.846 | 0.884 | -0.037 | [-0.219, +0.117] | not distinguishable |
+| ablation/rerank_long | Recall@10 | 0.900 | 0.961 | -0.061 | [-0.206, +0.056] | not distinguishable |
+| ablation/rerank_long | MRR@10 | 0.950 | 0.950 | +0.000 | [-0.128, +0.106] | not distinguishable |
+| ablation/rerank_long | nDCG@10 | 0.875 | 0.916 | -0.040 | [-0.191, +0.085] | not distinguishable |
 
 The hand and claude queries are different queries, so the interval of hand minus claude comes from resampling the queries within each group (10,000 times), not from pairing them.
 
@@ -331,6 +338,18 @@ Differences between every pair of systems.
 | rerank minus hybrid | Recall@10 | +0.006 | [-0.019, +0.033] | 0.038 | not distinguishable |
 | rerank minus hybrid | MRR@10 | +0.053 | [-0.046, +0.153] | 0.145 | not distinguishable |
 | rerank minus hybrid | nDCG@10 | +0.044 | [-0.033, +0.123] | 0.112 | not distinguishable |
+| ablation/rerank_long minus bm25 | Recall@10 | +0.094 | [+0.013, +0.188] | 0.127 | ablation/rerank_long higher |
+| ablation/rerank_long minus bm25 | MRR@10 | +0.227 | [+0.114, +0.342] | 0.166 | ablation/rerank_long higher |
+| ablation/rerank_long minus bm25 | nDCG@10 | +0.188 | [+0.088, +0.288] | 0.144 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | Recall@10 | +0.092 | [+0.025, +0.175] | 0.110 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | MRR@10 | +0.101 | [+0.013, +0.198] | 0.135 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | nDCG@10 | +0.128 | [+0.050, +0.214] | 0.120 | ablation/rerank_long higher |
+| ablation/rerank_long minus hybrid | Recall@10 | +0.015 | [+0.000, +0.037] | 0.029 | not distinguishable |
+| ablation/rerank_long minus hybrid | MRR@10 | +0.092 | [+0.006, +0.181] | 0.128 | ablation/rerank_long higher |
+| ablation/rerank_long minus hybrid | nDCG@10 | +0.075 | [+0.007, +0.144] | 0.099 | ablation/rerank_long higher |
+| ablation/rerank_long minus rerank | Recall@10 | +0.008 | [+0.000, +0.025] | 0.023 | not distinguishable |
+| ablation/rerank_long minus rerank | MRR@10 | +0.039 | [-0.004, +0.096] | 0.075 | not distinguishable |
+| ablation/rerank_long minus rerank | nDCG@10 | +0.031 | [-0.004, +0.074] | 0.056 | not distinguishable |
 
 The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time.
 <!-- p2:end own-pairs -->
@@ -368,14 +387,38 @@ Write your hypothesis here before you run it, in one sentence with a direction: 
 The run file for it lives in `runs/own/ablation/`.
 
 <!-- p2:begin own-ablation -->
-_No ablation runs yet: `uv run p2 run --corpus own --system NAME --ablation` writes one to runs/own/ablation/, then `uv run p2 score` fills this table._
+| Comparison | Metric | Mean difference | 95% interval | MDD | Reading |
+| --- | --- | ---: | ---: | ---: | --- |
+| ablation/rerank_long minus bm25 | Recall@10 | +0.094 | [+0.013, +0.188] | 0.127 | ablation/rerank_long higher |
+| ablation/rerank_long minus bm25 | MRR@10 | +0.227 | [+0.114, +0.342] | 0.166 | ablation/rerank_long higher |
+| ablation/rerank_long minus bm25 | nDCG@10 | +0.188 | [+0.088, +0.288] | 0.144 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | Recall@10 | +0.092 | [+0.025, +0.175] | 0.110 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | MRR@10 | +0.101 | [+0.013, +0.198] | 0.135 | ablation/rerank_long higher |
+| ablation/rerank_long minus dense | nDCG@10 | +0.128 | [+0.050, +0.214] | 0.120 | ablation/rerank_long higher |
+| ablation/rerank_long minus hybrid | Recall@10 | +0.015 | [+0.000, +0.037] | 0.029 | not distinguishable |
+| ablation/rerank_long minus hybrid | MRR@10 | +0.092 | [+0.006, +0.181] | 0.128 | ablation/rerank_long higher |
+| ablation/rerank_long minus hybrid | nDCG@10 | +0.075 | [+0.007, +0.144] | 0.099 | ablation/rerank_long higher |
+| ablation/rerank_long minus rerank | Recall@10 | +0.008 | [+0.000, +0.025] | 0.023 | not distinguishable |
+| ablation/rerank_long minus rerank | MRR@10 | +0.039 | [-0.004, +0.096] | 0.075 | not distinguishable |
+| ablation/rerank_long minus rerank | nDCG@10 | +0.031 | [-0.004, +0.074] | 0.056 | not distinguishable |
+
+The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time.
 <!-- p2:end own-ablation -->
 
 The queries your ablation helped and hurt, against the system it varies, by reciprocal rank.
 `p2 score` finds that system from a line such as `BASE = "bm25"` in your variant's file, or else from its name: `bm25_lab` varies `bm25`.
 
 <!-- p2:begin own-ablation-queries -->
-_No ablation runs yet: `uv run p2 run --corpus own --system NAME --ablation` writes one to runs/own/ablation/, then `uv run p2 score` fills this table._
+ablation/rerank_long against rerank (BASE = "rerank" in p2/retrievers/rerank_long.py): it helped 3 queries, hurt 1 and left 36 unchanged.
+
+| Query | Class | Origin | rerank RR | ablation/rerank_long RR | Change | Effect |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| q07 | mixed | claude | 0.200 | 1.000 | +0.800 | helped |
+| q01 | mixed | claude | 0.333 | 1.000 | +0.667 | helped |
+| q19 | paraphrase | hand | 0.250 | 0.500 | +0.250 | helped |
+| q35 | mixed | claude | 0.333 | 0.167 | -0.167 | hurt |
+
+RR is the reciprocal rank of the first relevant document in the top 10 (0 when none is there), the per-query value behind MRR@10; the queries at the top of each list are the ones to read.
 <!-- p2:end own-ablation-queries -->
 
 What did you change, what happened, and does the interval support the claim you want to make?
@@ -386,7 +429,21 @@ Read the queries at the top of each list in the second table, and say whether yo
 
 **Hypothesis:** I expect showing 600 words instead of 200 to raise `rerank`'s nDCG@10 on my corpus, because in several queries it ranked badly (q07, q01 and q19) the sentence that answers the question comes after the first 200 words of the relevant page.
 
-TODO: write the result and the claim after the run.
+**Result.**
+With 600 words per passage `rerank_long` scored nDCG@10 0.906, MRR@10 0.950 and recall@10 0.946, against 0.874, 0.911 and 0.938 for `rerank`.
+Against `rerank` the nDCG@10 difference is +0.031 [-0.004, +0.074] and the MRR@10 difference is +0.039 [-0.004, +0.096]; both intervals include zero, so the difference is not distinguishable on this gold set.
+The minimum detectable difference for nDCG@10 was 0.056, so a gain smaller than about 0.06 would not show.
+It cost about 26,100 input tokens per query against about 10,400 for `rerank`, roughly 2.5 times as many, at 4.6 seconds per query.
+
+**The queries.**
+It helped 3 queries, hurt 1 and left 36 unchanged.
+The three it helped are the ones named in my hypothesis: q07 (reciprocal rank 0.20 to 1.00), q01 (0.33 to 1.00) and q19 (0.25 to 0.50), so for those queries the answer sentence being past word 200 does explain the failure.
+It hurt q35 (0.33 to 0.17): its first result was `esl-one-cologne-2016`, which says "Gambit Esports from Kazakhstan won the title", and my labels do not count that page, so this drop may be a gap in my labels and not a ranking error.
+
+**Claim.**
+Showing the reranker more of each page fixed the three queries I predicted it would, but over the whole gold set the gain is not distinguishable from zero, so I cannot claim that 600 words is better than 200 overall; I can only claim it for those three queries.
+`rerank_long` is higher than `hybrid` and `dense` on nDCG@10 with intervals that exclude zero (+0.075 [+0.007, +0.144] and +0.128 [+0.050, +0.214]), which `rerank` was not for `hybrid` (+0.044 [-0.033, +0.123]), but I did not pre-register that comparison, so I treat it as a lead and not a result.
+What I would try next is giving the reranker the best-matching chunk of each page instead of its opening words, which should keep the answer sentence in view at a lower cost than 600 words.
 
 ---
 
@@ -479,6 +536,7 @@ Every trace in traces/ that records a Claude call:
 | traces/answers-rerank.r1.jsonl | rerank | 12 | 24 | 0 | 199,068 | 4,533 | 101.1 | 16,589 | 378 | 8.4 |
 | traces/answers-rerank.r2.jsonl | rerank | 12 | 24 | 0 | 179,823 | 4,482 | 150.4 | 14,985 | 374 | 12.5 |
 | traces/answers-rerank.r3.jsonl | rerank | 12 | 24 | 0 | 200,845 | 4,268 | 99.5 | 16,737 | 356 | 8.3 |
+| traces/own-own-ablation-rerank_long.jsonl | rerank_long | 40 | 40 | 0 | 1,042,891 | 4,230 | 181.6 | 26,072 | 106 | 4.5 |
 | traces/own-own-rerank.jsonl | rerank | 40 | 40 | 0 | 414,430 | 4,681 | 167.6 | 10,361 | 117 | 4.2 |
 | traces/shared-practice-rerank.jsonl | rerank | 20 | 20 | 2 | 192,573 | 1,978 | 59.7 | 9,629 | 99 | 3.0 |
 | traces/shared-practice-rerank.r1.jsonl | rerank | 20 | 20 | 0 | 210,413 | 1,930 | 82.7 | 10,521 | 96 | 4.1 |
