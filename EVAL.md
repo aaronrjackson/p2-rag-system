@@ -209,7 +209,11 @@ What is it, where did it come from, how many documents and how many megabytes, a
 Name the one or two documents you were least sure about and what you decided.
 Say which of the allowed sources in the brief it comes from.
 
-TODO: describe your corpus and its license basis.
+My corpus is 220 English Wikipedia articles about Counter-Strike: players, teams, tournaments (including the Majors), maps and the games themselves.
+I took the category tree under Counter-Strike and its players, teams and competitions categories (two levels of subcategories) with `scripts/fetch_wikipedia.py`, which fetches each article as plain text through the MediaWiki API and drops sections with no prose, such as References.
+It is about 269,000 words (about 377,000 estimated tokens) and about 1.7 MB.
+It comes from the allowed source "CC0, CC BY and CC BY-SA text, including Wikipedia": the license is CC BY-SA 4.0, and each page's footer says "Text is available under the Creative Commons Attribution-ShareAlike 4.0 License; additional terms may apply."
+The manifest records each page's address and revision for attribution.
 
 ### The gold set
 
@@ -228,7 +232,11 @@ When several pages each state the answer, such as a player's page and the event 
 For a query like "what is X", the page about X is the relevant one.
 Labels are binary (`rel` 1), and I decided each one after reading the page, not from the system that returned it.
 
-TODO: say how I found candidates for each query and whether I read every page before labeling it.
+For each query I took candidates from the top results of `bm25`, `dense` and `hybrid` plus a keyword search for the phrases I expected, so no one system decided what was in the pool.
+Claude Code listed the candidates with a snippet from each page, and I decided relevance myself, opening the pages, and added pages I thought of that the systems had not returned.
+The pool did not include `rerank`, so a relevant page that none of those four found is missing from the answer key.
+
+I read every candidate page before labeling it.
 
 ---
 
@@ -331,7 +339,25 @@ Which differences are distinguishable and which are not, at your gold-set size?
 Do the `hand` queries and the `claude` queries tell the same story?
 Did your prediction in `DECISIONS.md` prompt 1 hold?
 
-TODO: write what your own-corpus intervals let you claim.
+**What is distinguishable (40 queries).**
+`rerank` is higher than `bm25` on both scores: MRR@10 +0.188 [+0.069, +0.309] and nDCG@10 +0.156 [+0.052, +0.263].
+`hybrid` is higher than `bm25` on both as well (MRR@10 +0.135 [+0.041, +0.233], nDCG@10 +0.112 [+0.040, +0.187]).
+`dense` is higher than `bm25` on MRR@10 (+0.126 [+0.012, +0.244]) but not on nDCG@10 (+0.059 [-0.036, +0.157]).
+`hybrid` is higher than `dense` on nDCG@10 (+0.053 [+0.007, +0.103]) and not on MRR@10, and `rerank` is higher than `dense` on nDCG@10 (+0.097 [+0.004, +0.193]) and not on MRR@10.
+`rerank` against `hybrid` is not distinguishable on any score (nDCG@10 +0.044 [-0.033, +0.123]), which is the pair I pre-registered.
+
+**What 40 queries cannot see.**
+The minimum detectable difference runs from 0.07 to 0.17 depending on the pair and the score, so a gap smaller than that is invisible here and not absent.
+Several of these intervals have a lower end close to zero (for example 0.004 for `rerank` against `dense` on nDCG@10), so I would treat them as weak evidence.
+All four systems score high (recall@10 from 0.85 to 0.94), so there is not much room left to separate them.
+
+**Hand and claude queries.**
+All twelve hand-minus-claude rows include zero, with only 10 hand queries, so I cannot say the two groups behave alike, only that this gold set cannot tell them apart.
+The queries' content-word overlap with their best relevant page was 0.93 for hand and 0.89 for claude, so the model's queries did not copy page words much more than mine.
+
+**My prediction.**
+I expected `rerank` to win and `bm25` to do worst.
+`rerank` has the highest mean on every score and `bm25` the lowest, but `rerank`'s lead over `hybrid` and `dense` is not distinguishable, so only the "`bm25` is worse" half is supported by an interval.
 
 ---
 
@@ -356,7 +382,11 @@ What did you change, what happened, and does the interval support the claim you 
 If the result is not distinguishable, say what size of effect your gold set could have seen.
 Read the queries at the top of each list in the second table, and say whether your change explains them.
 
-TODO: write the ablation: the one change, the hypothesis, the result and the claim.
+**The one change:** the reranker (`rerank`) shows Claude the first 600 words of each of the 20 candidate pages instead of the first 200; the variant is `p2/retrievers/rerank_long.py` and everything else is the same.
+
+**Hypothesis:** I expect showing 600 words instead of 200 to raise `rerank`'s nDCG@10 on my corpus, because in several queries it ranked badly (q07, q01 and q19) the sentence that answers the question comes after the first 200 words of the relevant page.
+
+TODO: write the result and the claim after the run.
 
 ---
 
@@ -368,8 +398,17 @@ Then sort the failures by cause, for example a vocabulary mismatch, near-duplica
 
 | qid | what the best system returned | what was relevant | cause | what you would try |
 |---|---|---|---|---|
+| q07 | `luminosity-gaming`, `esl-one-cologne-2016`, `counter-strike-major-championships` (`hybrid` had `eleague-major-boston-2018` first) | `eleague-major-boston-2018` (rank 5), `cloud9` (not in the top 10) | the answer sentence is at word 362 of a 3,275-word page and the reranker saw only the first 200 words; `cloud9` never reached the first stage's top 20 | show the reranker more of each page, or its best-matching chunk |
+| q19 | `esl-one-cologne-2014`, `esl-one-cologne-2016`, `pgl-major-krak-w-2017` | `counter-strike-major-championships` (rank 4), `esl-one-katowice-2015` (not in the top 10) | the query names no team, so near-neighbour Major pages match it equally well, and the answer is in one sentence at word 500 of an overview page | same, plus a first stage that finds the overview page |
+| q01 | `pgl-major-antwerp-2022`, `counter-strike-major-championships` | `pgl-major-copenhagen-2024` (rank 3; `hybrid` had it first) | the incident is at word 796 of 866, beyond the reranker's 200 words, and sibling Major pages looked equally plausible | same |
+| q15 | `counter-strike-major-championships`, `magisk-gamer`, `starladder-major-berlin-2019` | `dupreeh` (not in the top 10 for any system), `counter-strike-major-championships` (rank 1) | vocabulary mismatch: the question names nobody, and the player's page says "first and only player to win five majors" in other words, so only the team overview page surfaced | a first stage tuned for "who" questions about records |
+| q24 | `counter-strike-major-championships`, `eleague-major-boston-2018`, `counter-strike-in-esports` | `dreamhack-winter-2013` (not in the top 10), `counter-strike-in-esports` (rank 3) | the page about the first Major was never in any system's top 10, and many Major pages use "first" about something else (first in two cities, first in North America) | add the Major's number or year to the query, or index titles separately |
+| q35 | `pgl-major-krak-w-2017`, `starladder-major-berlin-2019`, `counter-strike-major-championships` (rank 3; `hybrid` had it first) | `counter-strike-major-championships` | `pgl-major-krak-w-2017`, ranked first, says Gambit won (the first Asian team to win a Major) but never uses the word "Kazakhstan", so my rule did not count it: this may be a strict label and not a ranking failure | re-read the Kraków page and decide whether it states the answer |
 
-TODO: add one row for each failure you analyzed, and write two or three sentences on the pattern you see across them.
+In at least q07, q01 and q19 the relevant page states the answer after the first 200 words, which is all the reranker sees of each page, and 94% of my pages are longer than 200 words (the median is 764).
+I have not tested that this is the cause; the ablation in section 5 can.
+The other pattern is vocabulary mismatch on questions that name nobody (q15, q19, q24), where the first stage never found the right page.
+q35 shows that some failures are judgment calls in my labels and not ranking mistakes.
 
 ---
 
@@ -382,7 +421,23 @@ Did the winner change between the shared corpus and yours?
 Why, or why not: what is different about the two collections (document length, vocabulary, identifiers, near-duplicates, how the queries were written), and which of your explanations did you test and which are guesses?
 Say what 20 queries on one side and your gold-set size on the other cannot support.
 
-TODO: write the cross-corpus comparison.
+**Did the winner change?**
+By mean score `rerank` came first on both corpora (MRR@10 0.800 on the shared practice queries, 0.911 on mine).
+What changed is how clear the win is: on the shared corpus `rerank` was distinguishable from all three other systems on MRR@10, and on mine it is distinguishable only from `bm25` (+0.188 [+0.069, +0.309]), not from `hybrid` or `dense`.
+`bm25` also changed role: it was competitive on identifier queries and found none of the paraphrase answers on the shared corpus (recall@10 0.000), and on mine it is the weakest system but still reaches recall@10 0.767 on paraphrase queries.
+`hybrid` went from below both of its parts on the shared corpus (MRR@10 0.471) to the best system without Claude on mine (nDCG@10 0.830).
+
+**Why, and what I tested.**
+These are my guesses, and the only thing I measured on my own corpus is the query-to-page word overlap (0.93 for hand queries, 0.89 for claude queries).
+The shared corpus is 2,484 short legal sections, many of them parallel across Parts 56, 57, 75 and 77, and its paraphrase queries shared almost no words with their answers.
+Mine is 220 long articles written as ordinary prose (median 764 words), where a reworded question still shares names and terms with the page, so `bm25` has something to match and the other systems have less to add.
+With a smaller corpus and long pages, recall@10 is already high for every system (0.85 to 0.94), so there is less room for a reranker to show a gain.
+I did not test any of this directly.
+
+**What the comparison cannot support.**
+It rests on 20 queries on one side and 40 on the other, written and judged by different people, and the minimum detectable difference is 0.19 to 0.41 on the shared set and 0.07 to 0.17 on mine, so the two are not equally sensitive.
+My answer key was built from the top results of `bm25`, `dense` and `hybrid`, which may favor those systems over `rerank`, and `rerank` only saw the first 200 words of each page.
+I cannot say which system is best in general, only what these two collections showed.
 
 ---
 
@@ -544,4 +599,8 @@ The claim, the smallest effect, the gold-set size and the test are in `PREREG.md
 Here, say whether you followed the plan, what the interval turned out to be, and what that means.
 The outcome section of `PREREG.md` holds the short version.
 
-598E: write the claim and its outcome here.
+I followed the plan in `PREREG.md`: `rerank` against `hybrid`, nDCG@10, Δ = 0.15, and 40 queries.
+The interval was +0.044 [-0.033, +0.123], and the minimum detectable difference was 0.112, below my Δ of 0.15, so the gold set was big enough.
+That is the "well-powered null" row of my table: a difference as large as 0.15 is ruled out, and my hypothesis that `rerank` beats `hybrid` was not supported.
+For a reader, the useful part is the cost: `rerank` made one Claude call per query (about 10,400 input tokens and 4.2 seconds) to gain at most about 0.12 nDCG@10 over `hybrid`, and probably less.
+One caveat is that my reranker shows Claude only the first 200 words of each page, so this tested that reranker and not reranking in general.
